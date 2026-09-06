@@ -70,6 +70,7 @@ export function render(container) {
     ${nextUp.length ? `<div class="section-title">Coming up</div><div class="card" id="nextup-card"></div>` : ""}
 
     <p class="version-tag">TradeFlow v${APP_VERSION}</p>
+    <footer class="app-footer">© 2026 RND Tech</footer>
   `;
 
   const todayCard = container.querySelector("#today-card");
