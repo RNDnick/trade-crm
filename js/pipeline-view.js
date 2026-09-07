@@ -24,22 +24,26 @@ function moveLead(id, stage) {
 function convertToJob(lead) {
   const existing = getState().jobs.find((j) => j.leadId === lead.id);
   if (existing) {
-    location.hash = "#/jobs";
+    location.hash = `#/jobs/${existing.id}`;
     return;
   }
+  const jobId = uid("j");
   update((s) => {
     s.jobs.push({
-      id: uid("j"),
+      id: jobId,
       contactId: lead.contactId,
       leadId: lead.id,
       title: lead.title,
       status: "scheduled",
       value: lead.value,
       scheduledDate: new Date(Date.now() + 2 * 86400000).toISOString(),
+      durationDays: 1,
+      materialsCost: 0,
+      labourHours: 0,
       notes: "",
     });
   });
-  location.hash = "#/jobs";
+  location.hash = `#/jobs/${jobId}`;
 }
 
 function stageActions(lead) {

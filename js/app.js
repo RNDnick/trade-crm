@@ -8,6 +8,7 @@ import * as ContactsView from "./contacts-view.js";
 import * as ContactDetailView from "./contact-detail-view.js";
 import * as CalendarView from "./calendar-view.js";
 import * as JobsView from "./jobs-view.js";
+import * as JobDetailView from "./job-detail-view.js";
 import * as SettingsView from "./settings-view.js";
 
 const NAV_ITEMS = [
@@ -25,6 +26,7 @@ const ROUTES = [
   { pattern: /^#\/contacts\/([\w]+)$/, view: ContactDetailView, section: "#/contacts" },
   { pattern: /^#\/calendar$/, view: CalendarView, section: "#/calendar" },
   { pattern: /^#\/jobs$/, view: JobsView, section: "#/jobs" },
+  { pattern: /^#\/jobs\/([\w]+)$/, view: JobDetailView, section: "#/jobs" },
   { pattern: /^#\/settings$/, view: SettingsView, section: "#/settings" },
 ];
 

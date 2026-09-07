@@ -59,12 +59,27 @@ export function seedData() {
   ];
 
   const jobs = [
-    { id: "j1", contactId: "c7", leadId: "l7", title: "Downstairs loo re-wire", status: "scheduled", value: 310, scheduledDate: iso(2, 9, 0), notes: "Customer has materials on site already." },
-    { id: "j2", contactId: "c1", leadId: "l8", title: "Fuse board + smoke alarm upgrade", status: "in_progress", value: 720, scheduledDate: iso(0, 8, 30), notes: "Day 1 of 2. Isolate supply with DNO before 8am." },
-    { id: "j3", contactId: "c5", leadId: null, title: "Utility room re-wire (from Feb quote)", status: "complete", value: 1150, scheduledDate: iso(-5, 9, 0), notes: "Signed off, awaiting invoice." },
-    { id: "j4", contactId: "c4", leadId: null, title: "Bathroom extractor fan replacement", status: "invoiced", value: 180, scheduledDate: iso(-10, 13, 0), notes: "Invoice #1042 sent." },
-    { id: "j5", contactId: "c2", leadId: null, title: "PAT testing — 4 flats", status: "paid", value: 260, scheduledDate: iso(-18, 10, 0), notes: "Paid by bank transfer." },
+    { id: "j1", contactId: "c7", leadId: "l7", title: "Downstairs loo re-wire", status: "scheduled", value: 310, scheduledDate: iso(2, 9, 0), durationDays: 1, materialsCost: 45, labourHours: 4, notes: "Customer has materials on site already." },
+    { id: "j2", contactId: "c1", leadId: "l8", title: "Fuse board + smoke alarm upgrade", status: "in_progress", value: 720, scheduledDate: iso(0, 8, 30), durationDays: 2, materialsCost: 180, labourHours: 6.5, notes: "Day 1 of 2. Isolate supply with DNO before 8am." },
+    { id: "j3", contactId: "c5", leadId: null, title: "Utility room re-wire (from Feb quote)", status: "complete", value: 1150, scheduledDate: iso(-5, 9, 0), durationDays: 1, materialsCost: 310, labourHours: 14, notes: "Signed off, awaiting invoice." },
+    { id: "j4", contactId: "c4", leadId: null, title: "Bathroom extractor fan replacement", status: "invoiced", value: 180, scheduledDate: iso(-10, 13, 0), durationDays: 1, materialsCost: 35, labourHours: 2, notes: "Invoice #1042 sent." },
+    { id: "j5", contactId: "c2", leadId: null, title: "PAT testing — 4 flats", status: "paid", value: 260, scheduledDate: iso(-18, 10, 0), durationDays: 1, materialsCost: 0, labourHours: 3, notes: "Paid by bank transfer." },
+    { id: "j6", contactId: "c5", leadId: null, title: "Kitchen extension electrics", status: "scheduled", value: 3100, scheduledDate: iso(2, 9, 0), durationDays: 3, materialsCost: 620, labourHours: 28, notes: "Runs alongside the loo re-wire — different crew, same week." },
   ];
+
+  const crew = [{ id: "cr1", name: "Jamie Ellis" }];
+
+  const tasks = [
+    { id: "t1", jobId: "j2", type: "task", title: "Isolate supply & remove old board", done: true, assigneeId: null },
+    { id: "t2", jobId: "j2", type: "task", title: "Fit new consumer unit", done: true, assigneeId: null },
+    { id: "t3", jobId: "j2", type: "task", title: "First fix wiring to new board", done: false, assigneeId: "cr1" },
+    { id: "t4", jobId: "j2", type: "task", title: "Test & certify (EICR)", done: false, assigneeId: null },
+    { id: "t5", jobId: "j2", type: "task", title: "Client walkthrough & sign-off", done: false, assigneeId: null },
+    { id: "t6", jobId: "j3", type: "punch", title: "Touch up paint around new socket", done: false, assigneeId: null },
+    { id: "t7", jobId: "j3", type: "punch", title: "Label new circuits in consumer unit", done: true, assigneeId: null },
+  ];
+
+  const photos = [];
 
   const appointments = [
     { id: "a1", contactId: "c1", jobId: "j2", leadId: null, title: "Fuse board upgrade — day 2", type: "job", date: iso(0, 8, 30), duration: 240, location: "14 Elm Grove, Bristol BS6 5RT", notes: "Bring spare 100A main switch." },
@@ -82,7 +97,8 @@ export function seedData() {
     trade: "Electrician",
     theme: "system",
     calendarConnections: { google: false, outlook: false },
+    hourlyRate: 35,
   };
 
-  return { contacts, leads, jobs, appointments, settings };
+  return { contacts, leads, jobs, appointments, settings, crew, tasks, photos };
 }

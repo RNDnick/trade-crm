@@ -197,21 +197,25 @@ function openJobForm() {
         const value = Number(document.getElementById("job-value").value) || 0;
         const date = document.getElementById("job-date").value;
         const status = document.getElementById("job-status").value;
+        const jobId = uid("j");
         update((s) =>
           s.jobs.push({
-            id: uid("j"),
+            id: jobId,
             contactId: contactResult.id,
             leadId: null,
             title,
             status,
             value,
             scheduledDate: date ? new Date(date + "T09:00:00").toISOString() : new Date().toISOString(),
+            durationDays: 1,
+            materialsCost: 0,
+            labourHours: 0,
             notes: "",
           })
         );
         closeSheet();
         toast("Job added");
-        location.hash = "#/jobs";
+        location.hash = `#/jobs/${jobId}`;
       });
     },
   });

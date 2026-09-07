@@ -24,9 +24,22 @@ accounts, and no real calendar sync yet — see "What's mocked" below.
 - **Calendar** — a day agenda with a date scroller on mobile, a full week
   grid on desktop. Includes a "Connect Google/Outlook Calendar" banner.
 - **Jobs** — Scheduled → In Progress → Complete → Invoiced → Paid, with a
-  progress bar and one-tap status advance.
-- **Settings** — business profile, calendar connection toggles, light/dark/
-  system theme, and a reset-to-demo-data button.
+  progress bar and one-tap status advance. Each job opens into a **Job
+  detail** page with:
+  - a **task checklist**, so a job can be broken into steps with a progress
+    bar, plus a separate **punch list** for snags to clear before sign-off;
+  - **crew assignment** — tasks can be assigned to a team member set up in
+    Settings;
+  - a **budget** panel — quoted value vs. materials cost and labour hours
+    (at your set hourly rate), with the resulting profit and margin;
+  - a **photo log** — add photos straight from your phone's camera or
+    gallery, stored on-device.
+  - A **List/Timeline** toggle on the Jobs tab shows every job across the
+    week as a Gantt-style strip on desktop, or a day-by-day agenda on
+    mobile — either way flagging a day with more than one job booked, so a
+    double-booking is visible before it becomes a problem.
+- **Settings** — business profile, hourly rate and crew, calendar connection
+  toggles, light/dark/system theme, and a reset-to-demo-data button.
 - A **+** button on every screen to quickly add a lead, job, or appointment,
   including creating a new client inline.
 
@@ -41,6 +54,10 @@ becomes a left nav rail past 900px wide.
 - **Data** — seeded with fictional demo contacts/leads/jobs on first load,
   stored only in that browser's `localStorage`. No backend, no multi-device
   sync, no real authentication.
+- **Photos** — stored as-is in `localStorage`, which most browsers cap at a
+  few MB per site. Fine for a handful of demo photos; a real build would
+  need proper file storage (and probably client-side compression) before
+  relying on it for a full job's worth of photos.
 
 ## Running it locally
 

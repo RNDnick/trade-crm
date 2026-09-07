@@ -82,7 +82,7 @@ export function render(container, contactId) {
     container.querySelector("#jobs-block").innerHTML = jobs
       .map(
         (j, i) => `
-      <a href="#/jobs" style="display:flex;justify-content:space-between;align-items:center;padding:${i === 0 ? "0" : "12px"} 0 12px;${i > 0 ? "border-top:1px solid var(--outline-variant)" : ""}">
+      <a href="#/jobs/${j.id}" style="display:flex;justify-content:space-between;align-items:center;padding:${i === 0 ? "0" : "12px"} 0 12px;${i > 0 ? "border-top:1px solid var(--outline-variant)" : ""}">
         <div>
           <div style="font-size:14px;font-weight:500">${j.title}</div>
           ${statusChip(jobStatusLabel(j.status), JOB_TONE[j.status])}
