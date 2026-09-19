@@ -93,7 +93,7 @@ export function seedData() {
 
   const settings = {
     businessName: "Voss Electrical Services",
-    ownerName: "Nick Williams",
+    ownerName: "Dan Voss",
     trade: "Electrician",
     theme: "system",
     calendarConnections: { google: false, outlook: false },
