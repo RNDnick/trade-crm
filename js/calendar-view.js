@@ -1,5 +1,5 @@
-import { getState, getContact, update } from "./store.js";
-import { icon, formatTime, contactQuickActions, emptyState, toast } from "./components.js";
+import { getState, getContact, update, upcomingAppointments } from "./store.js";
+import { icon, formatTime, relativeDay, contactQuickActions, emptyState, toast } from "./components.js";
 
 export const meta = { title: "Calendar" };
 
@@ -89,6 +89,23 @@ function agendaRowHtml(a) {
     </div>`;
 }
 
+function upcomingCardHtml(appt) {
+  const c = getContact(appt.contactId);
+  return `
+    <div style="text-align:center;padding:20px 16px 4px">
+      ${icon("event_available", "empty-icon")}
+      <p class="empty-title" style="margin-top:8px">Nothing scheduled</p>
+    </div>
+    <div class="section-title" style="margin:16px 0 4px">Upcoming appointment</div>
+    <a class="appt-row" href="#/contacts/${c.id}" style="display:flex;border-top:none;padding-top:0">
+      <div class="appt-time">${relativeDay(appt.date)}<br/><span style="opacity:.75">${formatTime(appt.date)}</span></div>
+      <div class="appt-body">
+        <div class="appt-title">${appt.title}</div>
+        <div class="appt-meta">${icon(apptTypeIcon(appt.type))} ${c.name}</div>
+      </div>
+    </a>`;
+}
+
 function renderMobile(container, settings) {
   const days = Array.from({ length: 14 }, (_, i) => addDays(startOfDay(new Date()), i - 3));
   container.innerHTML = `
@@ -117,9 +134,13 @@ function renderMobile(container, settings) {
   function paintAgenda() {
     container.querySelector("#agenda-title").textContent = selectedDate.toLocaleDateString("en-GB", { weekday: "long", day: "numeric", month: "long" });
     const items = apptsOn(selectedDate);
-    container.querySelector("#agenda-list").innerHTML = items.length
-      ? items.map(agendaRowHtml).join("")
-      : emptyState("event_available", "Nothing scheduled", "Add an appointment with the + button.");
+    const listEl = container.querySelector("#agenda-list");
+    if (items.length) {
+      listEl.innerHTML = items.map(agendaRowHtml).join("");
+    } else {
+      const next = upcomingAppointments(1)[0];
+      listEl.innerHTML = next ? upcomingCardHtml(next) : emptyState("event_available", "Nothing scheduled", "Add an appointment with the + button.");
+    }
     container.querySelectorAll(".date-chip").forEach((chip) => chip.classList.toggle("active", chip.dataset.date === selectedDate.toISOString()));
   }
   paintAgenda();
